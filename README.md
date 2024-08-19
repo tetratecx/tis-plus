@@ -1,30 +1,32 @@
-# tis-plus
+# Onboarding of a TIS cluster in Hosted Management Plane
 
-**Onboarding of a TIS cluster in Hosted Management Plane**
-
-**Step-0**
-*PREREQUISITE*
-1. Download tetrate CP images-
+**Step-0 PREREQUISITES**
+1. Download tetrate CP images -
     a. Requires skopeo - https://github.com/containers/skopeo/blob/main/install.md
-    b. Follow :- `./controlplane/sync_images.sh`
+    b. Then follow this script :- `./controlplane/sync_images.sh`
 2. Download tetrate `tctl` utility (optional)
 
 **Step-1**
+
 We'll install tetrate controlplane components in a separate namespace. Make sure `kubectl` is pointing to the right k8s cluster that you want to onboard in management plane.
-a. If you have `tctl` utility available follow below steps OR skip to point (b)-
+
+a. If you have `tctl` utility available follow below steps OR skip to point (b) -
+
     ``` 
     MP_HOST="hosted-mp.tetrate.io" MP_PASSWORD='mp_password' TCTL="./tctl-bin/tctl-amd64" CLUSTER="test-cluster" ./controlplane/onboard-tis-controlplane.sh
     ```
-    *CLUSTER - It doesn't need to be app k8s cluster name, it can be any. Your app k8s cluster will be referenced with this name in managed MP.*
+    CLUSTER - It doesn't need to be app k8s cluster name, it can be any. Your app k8s cluster will be referenced with this name in managed MP.
 
-    *MP_HOST -  management plane hostname, exclude `htpps` and port number.* 
+    MP_HOST -  management plane hostname, exclude `htpps` and port number.
 
     Now run -
+
     ```
     CLUSTER="test-cluster" HUB='docker_hub' MP_HOST="hosted-mp.tetrate.io"   ./controlplane/tis-controlplane-setup.sh
     ```
-    *CLUSTER - same as you earlier provided*
-    *HUB - Your docker image registry where Tetrate images have been stotred*
+
+    CLUSTER - same as you earlier provided
+    HUB - Your docker image registry where Tetrate images have been stotred
 
 
 b. When you don't have `tctl` utlity available -
@@ -32,11 +34,13 @@ b. When you don't have `tctl` utlity available -
     ii. In clusters list , add one cluster object. Download Helm values file and place it here at root directory.
     iii. Make note of the cluster name you just provided.
     iv. Execute -
+
         ```
         CLUSTER="<cluster_name_just_provided>" HUB='<docker_hub>' MP_HOST="hosted-mp.tetrate.io"   ./controlplane/tis-controlplane-setup.sh
         ```
-    *CLUSTER - same as you just provided*
-    *HUB - Your docker image registry where Tetrate images have been stotred*
+
+    CLUSTER - same as you just provided
+    HUB - Your docker image registry where Tetrate images have been stotred
 
 
 c. In `tis-plus-system` namespace, there must run following pods -
@@ -54,6 +58,7 @@ d. Make sure all above pods are in READY state
 Now, we'll customize existing istio observability and tracing configuration to point to newly deployed controlplane components.
 
 a. Existing istio config should have customized configurations as mentioned in file https://github.com/tetratecx/tis-plus/tid/tid-istio-values.yaml
+
     ```
     global:
     meshID: mesh1
@@ -94,6 +99,7 @@ a. Existing istio config should have customized configurations as mentioned in f
         PILOT_ENABLE_WORKLOAD_ENTRY_AUTOREGISTRATION: true
         PILOT_ENABLE_WORKLOAD_ENTRY_HEALTHCHECKS: true
     ```
+
 b. Once istio config is in place, istiod pod must be restarted.
 c. Now restart all of your app pods.
 d. Verification in MP UI -
@@ -102,7 +108,10 @@ d. Verification in MP UI -
     iii. Verify its services
 e. Verification in config-
     i. Check envoy filter-chain for any service listener, it'll have following as part of http_connection_manager filter chain and tracing -
+
     `istioctl proxy-config listener <any_app_pod>  -n <namespace> --port <service_port> -oyaml`
+
+    Example snippet -
     ```
     filterChains:
     - filters:
@@ -127,7 +136,9 @@ e. Verification in config-
                 transportApiVersion: V3
             forwardClientCertDetails: SANITIZE_SET
     ```
+
 and
+
     ```
     tracing:
         provider:
@@ -143,6 +154,7 @@ and
     ```
 
 **Step-3**
+
 # Services visibility in Managementplane Dashboard
 
 You need to create Tetrate heirarchy resources to organize all onboarded clusters and their services.
@@ -160,6 +172,7 @@ c. Under workspace, first select your tenant and create a new workspace.
     ii. We can create as many workspaces as we want under one tenant.
 
 Note - To automate above steps, you can follow -
+
 ```
 ./controlplane/mp-dashboard/tsb.sh
 ```
