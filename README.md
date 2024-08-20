@@ -108,7 +108,8 @@ Now, we'll customize existing istio observability and tracing configuration to p
     - Verify its services
 5.  Verification in config-
     - Check envoy filter-chain for any service listener, it'll have following as part of http_connection_manager filter chain and tracing -
-    >istioctl proxy-config listener <any_app_pod>  -n <namespace> --port <service_port> -oyaml
+    > istioctl proxy-config listener <any_app_pod>  -n <namespace> --port <service_port> -oyaml
+    
     Example snippet -
 ```
     filterChains:
