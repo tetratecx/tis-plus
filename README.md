@@ -1,6 +1,7 @@
 # Onboarding of a TIS cluster in Hosted Management Plane
 
-## Step-0 Prerequistes 
+## Step-0 
+### Prerequistes 
 1.  Download tetrate CP images -
     - Requires skopeo - https://github.com/containers/skopeo/blob/main/install.md
     - Then follow this script :- `./controlplane/sync_images.sh`
@@ -154,15 +155,16 @@ and
 
 You need to create Tetrate heirarchy resources to organize all onboarded clusters and their services.
 Tetrate heirarchy -
-ORG -> Tenant -> Workspaces
+
+**ORG -> Tenant -> Workspaces**
 
 * ORG - Org name is fixed, you can get it from MP UI right hand side user profile section.
 * Tenant - It represents one Team.
 * Workspace - It represents logically grouped applications namespaces across clusters.
 
-a. Login to MP UI
-b. Under Tenants, create one tenant
-c.  Under workspace, first select your tenant and create a new workspace.
+1. Login to MP UI
+2. Under Tenants, create one tenant
+3.  Under workspace, first select your tenant and create a new workspace.
     - It'll ask to select cluster and namespaces to include. Here we keep logically connected namespaces where we want them in a single view of topology.
     - We can create as many workspaces as we want under one tenant.
 
