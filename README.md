@@ -16,9 +16,9 @@ We'll install tetrate controlplane components in a separate namespace. Make sure
     ``` 
     MP_HOST="hosted-mp.tetrate.io" MP_PASSWORD='mp_password' TCTL="./tctl-bin/tctl-amd64" CLUSTER="test-cluster" ./controlplane/onboard-tis-controlplane.sh
     ```
-    CLUSTER - It doesn't need to be app k8s cluster name, it can be any. Your app k8s cluster will be referenced with this name in managed MP.
+    - CLUSTER - It doesn't need to be app k8s cluster name, it can be any. Your app k8s cluster will be referenced with this name in managed MP.
 
-    MP_HOST -  management plane hostname, exclude `htpp/s` and port number.
+    - MP_HOST -  management plane hostname, exclude `htpp/s` and port number.
 
     Now run -
 
@@ -26,8 +26,8 @@ We'll install tetrate controlplane components in a separate namespace. Make sure
     CLUSTER="test-cluster" HUB='docker_hub' MP_HOST="hosted-mp.tetrate.io"   ./controlplane/tis-controlplane-setup.sh
     ```
 
-    CLUSTER - same as you earlier provided
-    HUB - Your docker image registry where Tetrate images have been stotred
+    - CLUSTER - same as you earlier provided
+    - HUB - Your docker image registry where Tetrate images have been stotred
 
 
 2.  When you don't have `tctl` utlity available -
@@ -38,8 +38,8 @@ We'll install tetrate controlplane components in a separate namespace. Make sure
     ```
     CLUSTER="<cluster_name_just_provided>" HUB='<docker_hub>' MP_HOST="hosted-mp.tetrate.io"   ./controlplane/tis-controlplane-setup.sh
     ```
-    CLUSTER - same as you just provided
-    HUB - Your docker image registry where Tetrate images have been stotred
+    - CLUSTER - same as you just provided
+    - HUB - Your docker image registry where Tetrate images have been stotred
 
 3. In `tis-plus-system` namespace, there must run following pods -
     > k get po -n tis-plus-system
