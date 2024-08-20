@@ -42,13 +42,15 @@ We'll install tetrate controlplane components in a separate namespace. Make sure
     HUB - Your docker image registry where Tetrate images have been stotred
 
 3. In `tis-plus-system` namespace, there must run following pods -
-    >k get po -n tis-plus-system
+    > k get po -n tis-plus-system
+    ```
     NAME                                         READY   STATUS    RESTARTS      AGE
     edge-5f564cc56f-4vmrr                        1/1     Running   0             28h
     oap-deployment-58786c7675-vjtr6              2/2     Running   0             28h
     otel-collector-7d887b47cb-rd9gd              2/2     Running   0             28h
     tsb-operator-control-plane-895f7f47f-87cvg   1/1     Running   0             28h
     xcp-operator-edge-65b756545d-kzkj7           1/1     Running   0             28h
+    ```
 4. Make sure all above pods are in `READY` state
 
 ## Step-2
