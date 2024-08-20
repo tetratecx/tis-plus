@@ -2,7 +2,7 @@
 
 ## Step-0 
 ### Prerequistes 
-1.  Download tetrate CP images -
+1.  Download tetrate controlplane images -
     - Requires skopeo - https://github.com/containers/skopeo/blob/main/install.md
     - Then follow this script :- `./controlplane/sync_images.sh`
 2.  Download tetrate `tctl` utility (optional)
@@ -11,14 +11,14 @@
 
 We'll install tetrate controlplane components in a separate namespace. Make sure `kubectl` is pointing to the right k8s cluster that you want to onboard in management plane.
 
-1.  If you have `tctl` utility available follow below steps OR skip to point (b) -
+1.  If you have `tctl` utility available follow below steps or skip to point 2 -
 
     ``` 
     MP_HOST="hosted-mp.tetrate.io" MP_PASSWORD='mp_password' TCTL="./tctl-bin/tctl-amd64" CLUSTER="test-cluster" ./controlplane/onboard-tis-controlplane.sh
     ```
     CLUSTER - It doesn't need to be app k8s cluster name, it can be any. Your app k8s cluster will be referenced with this name in managed MP.
 
-    MP_HOST -  management plane hostname, exclude `htpps` and port number.
+    MP_HOST -  management plane hostname, exclude `htpp/s` and port number.
 
     Now run -
 
