@@ -170,7 +170,7 @@ Tetrate heirarchy -
     - It'll ask to select cluster and namespaces to include. Here we keep logically connected namespaces where we want them in a single view of topology.
     - We can create as many workspaces as we want under one tenant.
 
-Note - To automate above steps, you can follow -
+Note - To automate above heirarchy creation steps, you can follow -
 
 ```
 ./controlplane/mp-dashboard/tsb.sh
