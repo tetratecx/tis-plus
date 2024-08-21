@@ -77,6 +77,8 @@ Now, we'll customize existing istio observability and tracing configuration to p
             interval: 10s
         tracing:
             sampling: 0.01
+            zipkin:
+                address: "zipkin.tis-plus-system.svc.cluster.local:9411"
     defaultProviders:
         tracing:
         - tetrate-oap
