@@ -15,8 +15,8 @@ meshConfig:
         interval: 10s
       tracing:
         sampling: 1
-      zipkin:
-        address: "zipkin.tis-plus-system.svc.cluster.local:9411"
+        zipkin:
+          address: "zipkin.tis-plus-system.svc.cluster.local:9411"
   defaultProviders:
     tracing:
       - tetrate-oap
