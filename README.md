@@ -36,7 +36,7 @@ We'll install tetrate controlplane components in a separate namespace. Make sure
     - Make note of the cluster name you just provided.
     - Execute -
     ```
-    CLUSTER="<cluster_name_just_provided>" HUB='<docker_hub>' MP_HOST="hosted-mp.tetrate.io"   ./controlplane/tis-controlplane-setup.sh
+    CLUSTER="<cluster_name_just_provided>" HUB='<docker_hub>' MP_HOST="hosted-mp.tetrate.io" IMAGE_PULL_SECRET=''  ./controlplane/tis-controlplane-setup.sh
     ```
     - CLUSTER - same as you just provided
     - HUB - Your docker image registry where Tetrate images have been stored

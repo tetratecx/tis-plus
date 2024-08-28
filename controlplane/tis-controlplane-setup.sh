@@ -2,7 +2,7 @@
 
 set -x
 # command
-# CLUSTER="test-cluster" HUB='docker.io/imnizam' MP_HOST="hosted-mp.tetrate.io"   ./controlplane/tis-controlplane-setup.sh
+# CLUSTER="test-cluster" HUB='docker.io/imnizam' MP_HOST="hosted-mp.tetrate.io"  IMAGE_PULL_SECRET=''  ./controlplane/tis-controlplane-setup.sh
 
 CLUSTER="${CLUSTER:-"app-cluster"}"
 HUB="${HUB:-"docker.io/imnizam"}"
@@ -22,4 +22,8 @@ helm upgrade --install "${RELEASE_NAME}" "${HELM_PKG}" \
   --set spec.mode="OBSERVE" \
   --set operator.enableObserveMode=true \
   --set operator.deletionProtection="disabled" \
-  --set spec.imagePullSecrets[0].name="${IMAGE_PULL_SECRET}"
+  --set spec.imagePullSecrets[0].name="${IMAGE_PULL_SECRET}" \
+  --set operator.serviceAccount.imagePullSecrets[0].name="${IMAGE_PULL_SECRET}"
+
+# kubectl patch serviceaccount tsb-operator-control-plane -p '{"imagePullSecrets": [{"name": "${IMAGE_PULL_SECRET}"}]}' -n "${NAMESPACE}"
+# kubectl delete pod  -n "${NAMESPACE}" -l=name=tsb-operator
