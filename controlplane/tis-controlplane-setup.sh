@@ -32,7 +32,7 @@ helm upgrade --install "${RELEASE_NAME}" "${HELM_PKG}" \
   --set operator.enableObserveMode=true \
   --set operator.deletionProtection="disabled" \
   --set spec.imagePullSecrets[0].name="${IMAGE_PULL_SECRET}" \
-  --set operator.serviceAccount.imagePullSecrets[0].name="${IMAGE_PULL_SECRET}"
+  --set operator.serviceAccount.imagePullSecrets[0]="${IMAGE_PULL_SECRET}"
 
 
 
