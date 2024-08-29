@@ -1,0 +1,27 @@
+spec:
+  components:
+    oap:
+      kubeSpec:
+        overlays:
+        - apiVersion: v1
+          kind: Deployment
+          name: oap-deployment
+          patches:
+          - path: spec.template.spec.containers[name:oap].readinessProbe
+            value:
+              failureThreshold: 10
+              initialDelaySeconds: 30
+              periodSeconds: 30
+              successThreshold: 1
+              tcpSocket:
+                port: rest
+              timeoutSeconds: 300
+          - path: spec.template.spec.containers[name:oap].livenessProbe
+            value:
+              failureThreshold: 10
+              initialDelaySeconds: 30
+              periodSeconds: 30
+              successThreshold: 1
+              tcpSocket:
+                port: rest
+              timeoutSeconds: 300
