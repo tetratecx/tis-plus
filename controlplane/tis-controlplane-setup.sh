@@ -25,7 +25,7 @@ echo "Installing controlplane... "
 helm upgrade --install "${RELEASE_NAME}" "${HELM_PKG}" \
   --namespace "${NAMESPACE}" --create-namespace \
   -f "${CLUSTER}-values.yaml" \
-  -f oap-patch.yaml \
+  -f ./controlplane/oap-patch.yaml \
   --set image.registry="${HUB}" \
   --set image.tag="${TAG}" \
   --set spec.hub="${HUB}" \
