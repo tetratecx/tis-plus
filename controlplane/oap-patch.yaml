@@ -15,7 +15,7 @@ spec:
               successThreshold: 1
               tcpSocket:
                 port: rest
-              timeoutSeconds: 300
+              timeoutSeconds: 360
           - path: spec.template.spec.containers[name:oap].livenessProbe
             value:
               failureThreshold: 10
@@ -24,4 +24,4 @@ spec:
               successThreshold: 1
               tcpSocket:
                 port: rest
-              timeoutSeconds: 300
+              timeoutSeconds: 360

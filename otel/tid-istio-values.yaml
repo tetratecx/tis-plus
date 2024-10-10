@@ -1,0 +1,27 @@
+meshConfig:
+  defaultConfig:
+    tracing:
+      sampling: 100
+  defaultProviders:
+    tracing:
+      - otel-tracing
+    accessLogging:
+      - tetrate-oap-als
+  extensionProviders:
+    - name: tetrate-oap
+      zipkin:
+        service: zipkin.tis-plus-system.svc.cluster.local
+        port: 9411
+    - name: otel-tracing
+      opentelemetry:
+        port: 4317
+        service: otel-lb-exporter-collector.observability.svc.cluster.local
+        resource_detectors:
+          environment: {}
+    - name: tetrate-oap-als
+      envoyHttpAls:
+        service: oap.tis-plus-system.svc.cluster.local
+        port: 11800
+  enableTracing: true
+  accessLogFile: /dev/stdout
+  enableEnvoyAccessLogService: true
