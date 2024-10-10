@@ -51,7 +51,7 @@ metadata:
   name: otel-lb-exporter
   namespace: observability
 spec:
-  image: docker.io/otel/opentelemetry-collector-contrib:latest
+  image: docker.io/otel/opentelemetry-collector-contrib@sha256:af0f72b2d2493fc17f06cf3bc136548240cd7ebb2c8b1c8a7be6f3eb03068389
   serviceAccount: loadbalancer
   managementState: managed
   config: |
@@ -91,7 +91,7 @@ metadata:
   namespace: observability
 spec:
   managementState: managed
-  image: docker.io/otel/opentelemetry-collector-contrib:latest
+  image: docker.io/otel/opentelemetry-collector-contrib@sha256:af0f72b2d2493fc17f06cf3bc136548240cd7ebb2c8b1c8a7be6f3eb03068389
   replicas: 5
   config: |
     receivers:
