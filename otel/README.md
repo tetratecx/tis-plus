@@ -13,6 +13,7 @@ kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releas
 ```
 
 ## Step-2.  Install LoadBalancer Exporter
+and
 ## Step-3.  Install Otel collector with tail sampling processor
 ```
 ./install-otel.sh
@@ -24,6 +25,8 @@ Configure existing istio with `tid-istio-values.yaml`
 
 
 
-## OTELtail based sampling processor- github https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/tailsamplingprocessor#probabilistic-sampling-processor-compared-to-the-tail-sampling-processor-with-the-probabilistic-policy
+### Otel tail based sampling processor- 
+github https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/tailsamplingprocessor#probabilistic-sampling-processor-compared-to-the-tail-sampling-processor-with-the-probabilistic-policy
 
-## Elastic search exporter - https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/elasticsearchexporter
+### Otel Elastic search exporter - 
+https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter/elasticsearchexporter
