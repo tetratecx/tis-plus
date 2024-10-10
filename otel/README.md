@@ -6,6 +6,7 @@ This example runs -
 - Otel collector with tail sampling processor - Total pods(replicas)-5 , in observability namespace.
 - Otel LoadBalancer Exporter - backend to otel collector[2],  in observability namespace.
 
+![alt text](image.png)
 ## Step-1.  Install otel collector operator
 
 ```
