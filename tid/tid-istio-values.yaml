@@ -21,7 +21,9 @@ meshConfig:
     tracing:
       - tetrate-oap
     accessLogging:
+      - envoy
       - tetrate-oap-als
+      - tetrate-tcp-oap-als
   extensionProviders:
     - name: tetrate-oap
       zipkin:
@@ -29,6 +31,10 @@ meshConfig:
         port: 9411
     - name: tetrate-oap-als
       envoyHttpAls:
+        service: oap.tis-plus-system.svc.cluster.local
+        port: 11800
+    - name: tetrate-tcp-oap-als
+      envoyTcpAls:
         service: oap.tis-plus-system.svc.cluster.local
         port: 11800
   enableTracing: true
