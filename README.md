@@ -57,49 +57,10 @@ We'll install tetrate controlplane components in a separate namespace. Make sure
 
 Now, we'll customize existing istio observability and tracing configuration to point to newly deployed controlplane components.
 
-1. Existing istio config should have customized configurations as mentioned in file https://github.com/tetratecx/tis-plus/tid/tid-istio-values.yaml
+1. Existing istio config should have customized configurations as mentioned in file -
 
 ```
-    global:
-    meshID: mesh1
-    multiCluster:
-        clusterName: Kubernetes
-    network: ""
-    meshConfig:
-    defaultConfig:
-        envoyMetricsService:
-        address: "oap.tis-plus-system.svc:11800"
-        tlsSettings:
-            mode: DISABLE
-        tcpKeepalive:
-            probes: 3
-            time: 10s
-            interval: 10s
-        tracing:
-            sampling: 0.01
-            zipkin:
-                address: "zipkin.tis-plus-system.svc.cluster.local:9411"
-    defaultProviders:
-        tracing:
-        - tetrate-oap
-        accessLogging:
-        - tetrate-oap-als
-    extensionProviders:
-        - name: tetrate-oap
-        zipkin:
-            service: zipkin.tis-plus-system.svc.cluster.local
-            port: 9411
-        - name: tetrate-oap-als
-        envoyHttpAls:
-            service: oap.tis-plus-system.svc.cluster.local
-            port: 11800
-    enableTracing: true
-    accessLogFile: /dev/stdout
-    enableEnvoyAccessLogService: true
-    pilot:
-    env:
-        PILOT_ENABLE_WORKLOAD_ENTRY_AUTOREGISTRATION: true
-        PILOT_ENABLE_WORKLOAD_ENTRY_HEALTHCHECKS: true
+    ./tid/tid-istio-values.yaml
 ```
 
 2. Once istio config is in place, istiod pod must be restarted.
