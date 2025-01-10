@@ -5,7 +5,7 @@
 1.  Download tetrate controlplane images - [Doc: https://docs.tetrate.io/istio-subscription-plus/installation/tisplus-images]
     - Requires Tetrate provided credentials
     - Then follow this script :- `./controlplane/sync_images.sh`
-2.  Download tetrate `tctl` utility (optional)
+2.  Download tetrate `tctl` utility
 
 ## Step-1
 Follow onboarding Doc for detailed guide: https://docs.tetrate.io/istio-subscription-plus/installation/onboard-cluster
