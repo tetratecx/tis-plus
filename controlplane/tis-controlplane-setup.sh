@@ -1,17 +1,24 @@
 #!/usr/bin/env bash
 
 set -x
-# command
+
+SCRIPTPATH=$(dirname "$0")
+# Execute this file on terminal with command -
 # CLUSTER="test-cluster" HUB='docker.io/imnizam' MP_HOST="hosted-mp.tetrate.io"  IMAGE_PULL_SECRET=''  ./controlplane/tis-controlplane-setup.sh
 
-CLUSTER="${CLUSTER:-"app-cluster"}"
-HUB="${HUB:-"docker.io/imnizam"}"
-MP_HOST="${MP_HOST:-"hosted-mp.aws-ce.sandbox.tetrate.io"}"
-IMAGE_PULL_SECRET="${IMAGE_PULL_SECRET:-""}"
-RELEASE_NAME="${RELEASE_NAME:-"tis-plus-cp"}"
-NAMESPACE="${NAMESPACE:-"tis-plus-system"}"
-TAG=${TAG:-"26e7773a9e6c872cb418a38a209740f2be892456"}
-HELM_PKG=${HELM_PKG:-"./controlplane/controlplane-1.10.0-dev+26e7773a9.tgz"}
+export CLUSTER="${CLUSTER:-"app-cluster"}" # For TIS+ cluster object creation, Refer ./onboard-tis-controlplane.sh
+
+export HUB="${HUB:-"123456789.dkr.ecr.us-east-2.amazonaws.com/tis-plus"}"
+export MP_HOST="${MP_HOST:-"fe546279.aws.tsb.tetrate.com"}"
+export IMAGE_PULL_SECRET="${IMAGE_PULL_SECRET:-""}"
+export RELEASE_NAME="${RELEASE_NAME:-"tis-plus-cp"}"
+export NAMESPACE="${NAMESPACE:-"tis-plus-system"}"
+export VERSION=${VERSION:-"1.11.1"}
+export HELM_PKG=${HELM_PKG:-"tetrate-tsb-helm/controlplane"}
+
+
+# check for image pull secrets for local docker hub
+# doc : https://docs.tetrate.io/istio-subscription-plus/installation/pre-checks#set-up-pull-secrets-in-the-tis-plus-namespace
 
 if [[ -n "$IMAGE_PULL_SECRET" ]];then
   kubectl -n $NAMESPACE get secrets $IMAGE_PULL_SECRET
@@ -20,22 +27,25 @@ if [[ -n "$IMAGE_PULL_SECRET" ]];then
     exit 1
   fi
 fi
+
 echo "Installing controlplane... "
+# doc : https://docs.tetrate.io/istio-subscription-plus/installation/onboard-cluster
+
+helm repo add tetrate-tsb-helm 'https://charts.dl.tetrate.io/public/helm/charts/'
+helm repo update
 
 helm upgrade --install "${RELEASE_NAME}" "${HELM_PKG}" \
-  --namespace "${NAMESPACE}" --create-namespace \
-  -f "${CLUSTER}-values.yaml" \
-  -f ./controlplane/oap-patch.yaml \
+  --version $VERSION \
+  --namespace tis-plus-system --create-namespace \
+  -f "${SCRIPTPATH}/${CLUSTER}-values.yaml" \
+  -f "${SCRIPTPATH}/oap-patch.yaml" \
   --set image.registry="${HUB}" \
-  --set image.tag="${TAG}" \
+  --set image.tag="${VERSION}" \
   --set spec.hub="${HUB}" \
   --set spec.mode="OBSERVE" \
-  --set operator.enableObserveMode=true \
+  --set operator.controlPlaneMode="OBSERVE" \
   --set operator.deletionProtection="disabled" \
-  --set spec.imagePullSecrets[0].name="${IMAGE_PULL_SECRET}" \
-  --set operator.serviceAccount.imagePullSecrets[0]="${IMAGE_PULL_SECRET}"
-
-
-
-# kubectl patch serviceaccount tsb-operator-control-plane -p '{"imagePullSecrets": [{"name": "${IMAGE_PULL_SECRET}"}]}' -n "${NAMESPACE}"
-# kubectl delete pod  -n "${NAMESPACE}" -l=name=tsb-operator
+  --set spec.managementPlane.host="$MP_HOST" \
+  --set spec.telemetryStore.elastic.host="$MP_HOST" \
+  --set spec.imagePullSecrets[0].name="$PULL_SECRET" \
+  --set operator.serviceAccount.imagePullSecrets[0]="$PULL_SECRET"

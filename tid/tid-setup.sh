@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 
-TAG=1.22.2-tetrate1-distroless
-VERSION=1.22.2
+TAG=1.23.0-tetrate1
+VERSION=1.23.0
 
 helm repo add tetratelabs https://tis.tetrate.io/charts
 helm repo update tetratelabs
@@ -13,7 +13,7 @@ helm upgrade --install istio-base tetratelabs/base -n istio-system \
     --version ${VERSION}
 
 helm upgrade --install istiod tetratelabs/istiod -n istio-system \
-    -f tid-istio-values.yaml \
+    -f default-tid-istio-values.yaml \
     --set global.tag=${TAG} \
     --set global.hub="containers.istio.tetratelabs.com" \
     --version ${VERSION}

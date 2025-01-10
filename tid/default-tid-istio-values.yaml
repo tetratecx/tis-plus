@@ -1,0 +1,12 @@
+global:
+  meshID: mesh1
+  multiCluster:
+    clusterName: Kubernetes
+  network: ""
+meshConfig:
+  defaultConfig:
+    tracing:
+      sampling: 100
+  enableTracing: true
+  accessLogFile: /dev/stdout
+  enableEnvoyAccessLogService: true
