@@ -2,12 +2,13 @@
 
 ## Step-0 
 ### Prerequistes 
-1.  Download tetrate controlplane images -
-    - Requires skopeo - https://github.com/containers/skopeo/blob/main/install.md
+1.  Download tetrate controlplane images - [Doc: https://docs.tetrate.io/istio-subscription-plus/installation/tisplus-images]
+    - Requires Tetrate provided credentials
     - Then follow this script :- `./controlplane/sync_images.sh`
 2.  Download tetrate `tctl` utility (optional)
 
 ## Step-1
+Follow onboarding Doc for detailed guide: https://docs.tetrate.io/istio-subscription-plus/installation/onboard-cluster
 
 We'll install tetrate controlplane components in a separate namespace. Make sure `kubectl` is pointing to the right k8s cluster that you want to onboard in management plane.
 
@@ -53,7 +54,8 @@ We'll install tetrate controlplane components in a separate namespace. Make sure
     ```
 4. Make sure all above pods are in `READY` state
 
-## Step-2
+## Step-2 
+Note: If you have opted for "Default: Automatic Tis+ sink" option [this is default option in step 1], you can skip this step-2.
 
 Now, we'll customize existing istio observability and tracing configuration to point to newly deployed controlplane components.
 
